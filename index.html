@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="가는 길에, 할 일까지. 할 일을 적으면 AI가 들를 곳을 찾고 근처를 지날 때 알려 줘요.">
+  <meta name="theme-color" content="#FFF5EC">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="들름">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <link rel="icon" type="image/png" href="favicon.png"/>
+  <title>들름 · 가는 길에, 할 일까지.</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    html, body { margin: 0; height: 100%; background: #160F29; }
+    #loading { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px;
+      font-family: -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; color: #FFB089; font-size: 15px; font-weight: 600; }
+    #loading svg { width: 72px; height: 72px; animation: bob 1.4s ease-in-out infinite; }
+    @keyframes bob { 50% { transform: translateY(-8px); } }
+  </style>
+</head>
+<body>
+  <div id="loading">
+    <svg viewBox="0 0 100 100"><path d="M50 8C29 8 16 24 16 43C16 64 50 92 50 92C50 92 84 64 84 43C84 24 71 8 50 8Z" fill="#FF6A3D"/><ellipse cx="47" cy="40" rx="5.5" ry="8" fill="#1E1633"/><ellipse cx="66" cy="40" rx="5.5" ry="8" fill="#1E1633"/></svg>
+    <div>들름을 여는 중…</div>
+  </div>
+  <script>
+    window.addEventListener('flutter-first-frame', function () {
+      var el = document.getElementById('loading');
+      if (el) el.remove();
+    });
+  </script>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>
