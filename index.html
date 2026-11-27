@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,8 +15,9 @@
   <link rel="manifest" href="manifest.json">
   <style>
     html, body { margin: 0; height: 100%; background: #160F29; }
-    #loading { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px;
-      font-family: -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; color: #FFB089; font-size: 15px; font-weight: 600; }
+    @font-face { font-family: 'Pretendard'; font-weight: 600; src: url('assets/assets/fonts/Pretendard-SemiBold.otf') format('opentype'); }
+    #loading { position: fixed; z-index: 0; transition: opacity .3s; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px;
+      font-family: 'Pretendard', 'Helvetica Neue', Helvetica, Arial, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; color: #FFB089; font-size: 15px; font-weight: 600; }
     #loading svg { width: 72px; height: 72px; animation: bob 1.4s ease-in-out infinite; }
     @keyframes bob { 50% { transform: translateY(-8px); } }
   </style>
@@ -28,10 +28,20 @@
     <div>들름을 여는 중…</div>
   </div>
   <script>
-    window.addEventListener('flutter-first-frame', function () {
-      var el = document.getElementById('loading');
-      if (el) el.remove();
-    });
+    // Flutter 화면이 붙으면 로딩 화면을 치운다 (가리지 않도록)
+    (function () {
+      function hide() {
+        var el = document.getElementById('loading');
+        if (!el) return;
+        el.style.opacity = '0';
+        setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 350);
+      }
+      window.addEventListener('flutter-first-frame', hide);
+      var timer = setInterval(function () {
+        if (document.querySelector('flutter-view, flt-glass-pane')) { clearInterval(timer); setTimeout(hide, 800); }
+      }, 200);
+      setTimeout(hide, 30000);
+    })();
   </script>
   <script src="flutter_bootstrap.js" async></script>
 </body>
